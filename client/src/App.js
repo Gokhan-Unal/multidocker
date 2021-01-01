@@ -5,14 +5,14 @@ import OtherPage from './OtherPage'
 
 function App() {
   return (
-    <div className="App">
-      <Link to="/">Home</Link>
-      <Link to="/otherpage">Other Page</Link>
-      <BrowserRouter>
+    <BrowserRouter>
+      <div className="App">
+        <Link to="/">Home</Link>
+        <Link to="/otherpage">Other Page</Link>
         <Route exact path="/" component={Fib} />
         <Route path="/otherpage" component={OtherPage} />
-      </BrowserRouter>
-    </div>
+      </div>
+    </BrowserRouter>
   )
 }
 
