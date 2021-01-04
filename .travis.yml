@@ -9,12 +9,12 @@ script:
   - docker run -e CI=true escanorsama/multidocker npm test
 
 after_success:
-  - docker build -t phoenix/multi-client ./client
-  - docker build -t phoenix/multi-nginx ./nginx
-  - docker build -t phoenix/multi-server ./server
-  - docker build -t phoenix/multi-worker ./worker
+  - docker build -t escanorsama/multi-client ./client
+  - docker build -t escanorsama/multi-nginx ./nginx
+  - docker build -t escanorsama/multi-server ./server
+  - docker build -t escanorsama/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push phoenix/multi-client
-  - docker push phoenix/multi-nginx
-  - docker push phoenix/multi-server
-  - docker push phoenix/multi-worker
+  - docker push escanorsama/multi-client
+  - docker push escanorsama/multi-nginx
+  - docker push escanorsama/multi-server
+  - docker push escanorsama/multi-worker
