@@ -3,16 +3,17 @@ services:
   - docker
 
 before_install:
-  - docker build -t escanorsama/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t escanorsama/multidocker -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true escanorsama/react-test npm test
+  - docker run -e CI=true escanorsama/multidocker npm test
 
 after_success:
   - docker build -t escanorsama/multi-client ./client
   - docker build -t escanorsama/multi-nginx ./nginx
   - docker build -t escanorsama/multi-server ./server
   - docker build -t escanorsama/multi-worker ./worker
+
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push escanorsama/multi-client
   - docker push escanorsama/multi-nginx
