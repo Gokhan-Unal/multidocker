@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t phoenix/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true USERNAME/react-test npm test
+
+after_success:
+  - docker build -t phoenix/multi-client ./client
+  - docker build -t phoenix/multi-nginx ./nginx
+  - docker build -t phoenix/multi-server ./server
+  - docker build -t phoenix/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push phoenix/multi-client
+  - docker push phoenix/multi-nginx
+  - docker push phoenix/multi-server
+  - docker push phoenix/multi-worker
